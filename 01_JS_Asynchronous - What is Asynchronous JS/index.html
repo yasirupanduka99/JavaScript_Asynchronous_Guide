@@ -1,13 +1,137 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>What is Asynchronous?</title>
+    <link rel="stylesheet" href="./style.css" />
 </head>
+
 <body>
+    <h3>What is Asynchronous JavaScript?</h3>
+
+    <p>
+        Asynchronous JavaScript is a programming approach that allows JavaScript
+        to perform tasks independently of the main execution thread, enabling the
+        program to handle other tasks while waiting for long-running operations to
+        complete. This is essential for creating efficient and responsive web
+        applications, as it prevents the user interface from freezing or becoming
+        unresponsive while waiting for operations like network requests, file I/O,
+        or timers. <br />
+
+        Here are some key concepts and methods associated with asynchronous
+        JavaScript:
+    </p>
+
+    <ul>
+        <li>
+            <h4>Callbacks:</h4>
+            <p>
+                Definition: A function passed into another function as an argument,
+                which is then invoked inside the outer function to complete some kind
+                of routine or action.
+            </p>
+            <p>Example:</p>
+            <pre>
+            <code>
+                function fetchData(callback) {
+                setTimeout(() => {
+                    callback('Data received');
+                }, 1000);
+                }
+
+                fetchData((message) => {
+                console.log(message); // "Data received" after 1 second
+                });          
+            </code>
+            </pre>
+        </li>
+        <li>
+            <h4>Promises:</h4>
+            <p>
+                Definition: An object representing the eventual completion or failure of an asynchronous operation and
+                its resulting value.
+            </p>
+            <p>Example:</p>
+            <pre>
+            <code>
+                const fetchData = new Promise((resolve, reject) => {
+                  setTimeout(() => {
+                    resolve('Data received');
+                  }, 1000);
+                });
+                  
+                fetchData.then((message) => {
+                  console.log(message); // "Data received" after 1 second
+                });          
+            </code>
+            </pre>
+        </li>
+        <li>
+            <h4>async/await:</h4>
+            <p>
+                Definition: Syntactic sugar built on top of promises, providing a more readable and concise way to
+                handle asynchronous code.
+            </p>
+            <p>Example:</p>
+            <pre>
+            <code>
+                function fetchData() {
+                  return new Promise((resolve, reject) => {
+                    setTimeout(() => {
+                      resolve('Data received');
+                    }, 1000);
+                  });
+                }
+                  
+                async function getData() {
+                  const message = await fetchData();
+                  console.log(message); // "Data received" after 1 second
+                }
+                  
+                getData();
+                           
+            </code>
+            </pre>
+        </li>
+        <li>
+            <h4>Event Loop:</h4>
+            <p>
+                Definition: The mechanism that handles the execution of multiple chunks of your program, including
+                handling asynchronous callbacks. It allows JavaScript to perform non-blocking operations by offloading
+                tasks to the web API, which then pushes callbacks to the event queue once completed.
+            </p>
+            <p>Example Workflow:</p>
+            <pre>
+            <code>
+                1. JavaScript call stack processes code.
+                2. Asynchronous operations (like setTimeout, AJAX calls) are offloaded to the browser's web API.
+                3. Once completed, the callback functions are pushed to the event queue.
+                4. The event loop checks the event queue and moves the callbacks to the call stack for execution when the stack is empty.          
+            </code>
+            </pre>
+        </li> 
+    </ul>
+
+
+    <h3>Benefits of Asynchronous JavaScript:</h3>
+
+    <ul>
+        <li>
+            Improved Performance: Enables handling multiple operations concurrently without blocking the main thread.
+        </li>
+        <li>
+            Enhanced User Experience: Keeps the application responsive by allowing other interactions while waiting for slow tasks to complete.
+        </li>
+        <li>
+            Better Resource Utilization: Efficiently uses system resources by not keeping the CPU idle while waiting for I/O operations.
+        </li>
+    </ul>
+
+
 
     <script src="./script.js"></script>
-    
 </body>
+
 </html>
