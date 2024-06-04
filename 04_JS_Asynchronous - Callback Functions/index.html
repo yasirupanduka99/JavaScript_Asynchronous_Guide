@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JS-Async</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+
+  <body>
+    <h2>JavaScript Callback Functions</h2>
+
+    <p>
+      <b>"I will call back later!"</b><br />
+      A callback is a function passed as an argument to another function<br />
+      This technique allows a function to call another function<br />
+      A callback function can run after another function has finished.
+    </p>
+    <br /><br />
+
+    <p>
+      JavaScript callback functions are an essential concept, especially in
+      asynchronous programming.
+    </p>
+    <br /><br />
+
+    <h3>What is a Callback Function?</h3>
+    <p>
+      A callback function is a function that is passed as an argument to another
+      function and is executed after some kind of event or operation has
+      occurred. It’s a way to make sure certain code doesn’t execute until
+      another code has already finished execution.
+    </p>
+    <br /><br />
+
+    <h3>Synchronous Callbacks</h3>
+    <p>
+      Synchronous callbacks are executed immediately. These are often used with
+      array methods like <code>forEach</code>, <code>map</code>,
+      <code>filter</code>, etc.
+    </p>
+    <br />
+    <p>Example:</p>
+    <pre>
+      <code>
+function greeting(name) {
+    console.log(`Hello, ${name}`);
+}
+
+function processUserInput(callback) {
+    const name = "John";
+    callback(name);
+}
+
+// Output: Hello, John
+processUserInput(greeting);
+      </code>
+    </pre>
+    <br /><br />
+
+    <h3>Asynchronous Callbacks</h3>
+    <p>
+      Asynchronous callbacks are executed after an operation is completed. These
+      are commonly used in network requests, event handling, and timers.
+    </p>
+    <br />
+    <p>Example with `setTimeout`:</p>
+    <pre>
+      <code>
+function sayHi() {
+    console.log('Hi!');
+}
+
+// Output: Hi! (after 2 seconds)  
+setTimeout(sayHi, 2000);    
+      </code>
+    </pre>
+
+    <p>Example with Event Handling:</p>
+    <pre>
+      <code>
+document.getElementById('myButton').addEventListener('click', function() {
+    console.log('Button was clicked!');
+});      
+      </code>
+    </pre>
+
+    <p>Example with an Asynchronous Operation (like fetching data):</p>
+    <pre>
+      <code>
+function fetchData(callback) {
+    // Simulate an API call
+    setTimeout(function() {
+        const data = { name: 'John Doe' };
+        callback(data);
+    }, 3000);
+}
+
+function handleData(data) {
+    console.log(`Received data: ${data.name}`);
+}
+
+// Output: Received data: John Doe (after 3 seconds)   
+fetchData(handleData);        
+      </code>
+    </pre>
+    <br /><br />
+
+    <script src="./script.js"></script>
+  </body>
+</html>
