@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JS-Async</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+
+  <body>
+    <h2>What is HTTP?</h2>
+    <p>
+      The Hypertext Transfer Protocol (HTTP) is designed to enable
+      communications between clients and servers. <br />
+
+      HTTP works as a request-response protocol between a client and server.<br />
+
+      Example: A client (browser) sends an HTTP request to the server; then the
+      server returns a response to the client. The response contains status
+      information about the request and may also contain the requested content.
+    </p>
+    <br />
+
+    <h3>HTTP Methods</h3>
+    <ul>
+      <li>GET</li>
+      <li>POST</li>
+      <li>PUT</li>
+      <li>HEAD</li>
+      <li>DELETE</li>
+      <li>PATCH</li>
+      <li>OPTIONS</li>
+      <li>CONNECT</li>
+      <li>TRACE</li>
+    </ul>
+    <p>The two most common HTTP methods are: GET and POST.</p>
+    <br />
+
+    <h3>The GET Method</h3>
+    <p>GET is used to request data from a specified resource.</p>
+    <p><b>Some notes on GET requests:</b></p>
+    <ul>
+      <li>GET requests can be cached</li>
+      <li>GET requests remain in the browser history</li>
+      <li>GET requests can be bookmarked</li>
+      <li>
+        GET requests should never be used when dealing with sensitive data
+      </li>
+      <li>GET requests have length restrictions</li>
+      <li>GET requests are only used to request data (not modify)</li>
+    </ul>
+    <br />
+
+    <h3>The POST Method</h3>
+    <p>POST is used to send data to a server to create/update a resource.</p>
+    <p><b>Some notes on POST requests:</b></p>
+    <ul>
+      <li>POST requests are never cached</li>
+      <li>POST requests do not remain in the browser history</li>
+      <li>POST requests cannot be bookmarked</li>
+      <li>POST requests have no restrictions on data length</li>
+    </ul>
+    <br />
+
+    <h3>The PUT Method</h3>
+    <p>
+      PUT is used to send data to a server to create/update a resource. <br />
+      The difference between POST and PUT is that PUT requests are idempotent.
+      That is, calling the same PUT request multiple times will always produce
+      the same result. In contrast, calling a POST request repeatedly have side
+      effects of creating the same resource multiple times.
+    </p>
+    <br />
+
+    <h3>The HEAD Method</h3>
+    <p>
+      HEAD is almost identical to GET, but without the response body. <br />
+      In other words, if GET /users returns a list of users, then HEAD /users
+      will make the same request but will not return the list of users. <br />
+      A HEAD request is useful for checking what a GET request will return
+      before actually making a GET request - a HEAD request can read the
+      Content-Length header to check the size of the file, without actually
+      downloading the file.
+    </p>
+    <br />
+
+    <h3>The DELETE Method</h3>
+    <p>The DELETE method deletes the specified resource.</p>
+    <br />
+
+    <h3>The PATCH Method</h3>
+    <p>
+      The PATCH method is used to apply partial modifications to a resource.
+    </p>
+    <br />
+
+    <h3>The OPTIONS Method</h3>
+    <p>
+      The OPTIONS method describes the communication options for the target
+      resource.
+    </p>
+    <br />
+
+    <h3>The CONNECT Method</h3>
+    <p>
+      The CONNECT method is used to start a two-way communications (a tunnel)
+      with the requested resource.
+    </p>
+    <br />
+
+    <h3>The TRACE Method</h3>
+    <p>
+      The TRACE method is used to perform a message loop-back test that tests
+      the path for the target resource (useful for debugging purposes).
+    </p>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
