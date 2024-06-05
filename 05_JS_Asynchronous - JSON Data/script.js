@@ -1,4 +1,7 @@
 
+
+// Getting data as JSON array of objects
+
 const getTodos = (callback) => {
   const request = new XMLHttpRequest();
 
@@ -11,7 +14,7 @@ const getTodos = (callback) => {
     }
   });
 
-  request.open("GET", "https://jsonplaceholder.typicode.com/todos/");
+  request.open("GET", "./todos.json"); // This './todos.json' is API end point, which we created JSON file with our own JSON data.
   request.send();
 };
 
