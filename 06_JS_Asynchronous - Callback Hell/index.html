@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JS-Async</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+
+  <body>
+    <h2>Callback Hell</h2>
+
+    <h3>What is Callback Hell?</h3>
+    <p>
+      Callback hell is situation in JavaScript where multiple nested callbacks
+      make code difficult to read and maintain. This often happens when dealing
+      with asynchronous operations, such as reading files, making HTTP requests,
+      or interacting with databases.
+    </p>
+    <br />
+
+    <h4>Example of Callback Hell</h4>
+    <p>
+      Here's an example to illustrate callback hell. Imagine you need to perform
+      a series of asynchronus operations:
+    </p>
+    <ol>
+      <li>Fetch user data.</li>
+      <li>Fetch user's posts based on the user data.</li>
+      <li>Fetch comments for each posts.</li>
+    </ol>
+    <p>
+      Each step depends on the result of the previous step, leading to deeply
+      nested callbacks:
+    </p>
+    <pre>
+      <code>
+getUser(userId, function (user) {
+  getPosts(user.id, function (posts) {
+    posts.forEach(function (post) {
+      getComments(post.id, function (comments) {
+        console.log(`Post: ${post.title}, Comments: ${comments.length}`);
+      });
+    });
+  });
+});        
+      </code>
+    </pre>
+    <p>
+      As the number of nested callbacks increases, the code becomes increasignly
+      difficult to read and maintain. This is often referred to as "pyramid of
+      doom".
+    </p>
+    <br />
+
+    <h3>Solutions to Callback Hell</h3>
+    <p><b>1. Named Functions</b></p>
+    <p>
+      One way to reduce the complexity is to use named functions instead of
+      anonymous inline functions. This flattens the structure and makes the code
+      more readable.
+    </p>
+    <pre>
+      <code>
+function handleComments(comments) {
+  console.log(`Post: ${this.title}, Comments: ${comments.length}`);
+}
+
+function handlePosts(posts) {
+  posts.forEach(function (post) {
+    getComments(post.id, handleComments.bind(post));
+  });
+}
+
+getUser(userId, function (user) {
+  getPosts(user.id, handlePosts);
+})
+      </code>
+    </pre>
+    <br />
+
+    <p>
+      <b>2. Promises - </b>
+      <span style="color: rgb(255, 187, 0)"
+        >we will discuss this in next chapter</span
+      >
+    </p>
+    <p>
+      Promises provide a cleaner way to handle asynchronus operations. They help
+      flatten the structure and avoid deeply nested callbacks.
+    </p>
+    <pre>
+      <code>
+getUser(userId)
+  .then(function (user) {
+    return getPosts(user.id);
+  })
+  .then(function (posts) {
+    return Promise.all(posts.map(function (post) {
+      return getComments(post.id).then(function (comments) {
+        console.log(`Post: ${post.title}, Comments: ${comments.length});
+      })
+    }))
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+      </code>
+    </pre>
+    <br />
+
+    <p>
+      <b>3. Async/Await - </b>
+      <span style="color: rgb(255, 187, 0)"
+        >we will discuss this in lastly in this series.</span
+      >
+    </p>
+    <p>
+      Async/await syntax, introduced in ES2017, further simplifies working with
+      promises and makes asynchronous code look more like synchronous code.
+    </p>
+    <pre>
+      <code>
+async function fetchUserData(userId) {
+  try {
+    const user = await getUser(userId);
+    const posts = await getPosts(user.id);
+    for (const post of posts) {
+      const comments = await getComments(post.id);
+      console.log(`Post: ${post.title}, Comments: ${comments.length}`);
+    }
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+fetchUserData(userId);
+      </code>
+    </pre>
+    <br />
+
+    <h3>Conclusion</h3>
+    <p>
+      Callback hell occurs when multiple nested callbacks make asynchronous code
+      hard to read and maintain. You can avoid it by:
+    </p>
+    <ol>
+      <li>Using named functions to reduce nesting.</li>
+      <li>Using promises to flatten the structure.</li>
+      <li>Using async/await for cleaner and more readable asynchronus code.</li>
+    </ol>
+    <p>By adopting these techniques, you can write more maintainable and readable asynchronus JavaScript code.</p>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
