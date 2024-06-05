@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JS-Async</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+
+  <body>
+    <h2>JSON (JavaScript Object Notation)</h2>
+
+    <p>
+      JSON (JavaScript Object Notation) is a lightweight data interchange format
+      that's easy for humans to read and write, and easy for machines to parse
+      and generate. It's commonly used to transmit data between a server and a
+      web application.
+    </p>
+    <br /><br />
+
+    <h3>Basic of JSON</h3>
+    <p>JSON data is represnted in two main sstructures:</p>
+    <ol>
+      <li>Objects</li>
+      <li>Arrays</li>
+    </ol>
+
+    <h4>1. Objects</h4>
+    <ul>
+      <li>Objects are collections of key-value pairs.</li>
+      <li>They are enclosed in curly braces`{}`.</li>
+      <li>Keys are strings and should be enclosed in double quotes `" "`</li>
+      <li>
+        Values can be strings, numbers, arrays, objects, `true`, `false`, or
+        `null`.
+      </li>
+      <li>Values cannot be a function, a date or `undefined`.</li>
+    </ul>
+    <br />
+    <p>Example:</p>
+    <pre>
+      <code>
+`{
+  "name": "John",
+  "age": 30,
+  "isStudent": false,
+  "address": {
+    "street": "123 Main St",
+    "city": "Anytown"
+  }
+}`        
+      </code>
+    </pre>
+    <p>In this example:</p>
+    <ul>
+      <li>`"name"` is a key, and `"John"` is its value (a string).</li>
+      <li>`"age"` is a key, and `30` is its value (a number).</li>
+      <li>`"isStudent"` is a key, and `false` is its value (a boolean).</li>
+      <li>
+        `"address"` is a key, and its value is another object with its own
+        key-value pairs.
+      </li>
+    </ul>
+
+    <h4>2. Arrays</h4>
+    <ul>
+      <li>Arrays are ordered lists of values.</li>
+      <li>They are enclosed in square brackets `[]`.</li>
+      <li>
+        Values in an array can be strings, numbers, arrays, objects, `true`,
+        `false`, or `null.
+      </li>
+    </ul>
+    >
+    <br />
+    <p>Example of a JSON array:</p>
+    <pre>
+      <code>
+        `[
+          "apple",
+          "banana",
+          "cherry"
+        ]`        
+      </code>
+    </pre>
+    <p>
+      In this example, the array contains three string values: `"apple"`,
+      `"banana"`, and `"cherry"`.
+    </p>
+    <br />
+    <p>Example of a JSON object with an array:</p>
+    <pre>
+      <code>
+`{
+  "name": "John",
+  "age": 30,
+  "isStudent": false,
+  "favoriteFruits": ["apple", "banana", "cherry"]
+}`        
+      </code>
+    </pre>
+
+    <h3>Key Points to Remember</h3>
+    <ul>
+      <li>JSON keys must be strings in double quotes.</li>
+      <li>
+        JSON values can be of several types: string, number, object, array,
+        `true`, `false`, or `null`.
+      </li>
+      <li>
+        JSON is widely used in web applications for configuration files, data
+        exchange between a client and a server, and much more.
+      </li>
+    </ul>
+    <p><b>Example of a More COmplex JSON Structure</b></p>
+    <pre>
+      <code>
+`{
+  "library": {
+    "name": "City Library",
+    "location": "Downtown",
+    "books": [
+      {
+        "title": "1984",
+        "author": "George Orwell",
+        "available": true
+      },
+      {
+        "title": "To Kill a Mockingbird",
+        "author": "Harper Lee",
+        "available": false
+      }
+    ]
+  }
+}`        
+      </code>
+    </pre>
+    <p>In this example:</p>
+    <ul>
+      <li>The `"library"` key has an its value.</li>
+      <li>
+        The `"books"` key has an array of objects, each representing a book with
+        keys like `"title"`,`"author"`, and `"available"`.
+      </li>
+    </ul>
+    <br /><br />
+
+    <h3>Conclusion</h3>
+    <p>
+      JSON is a simple and effective way to represent structured data. It's easy
+      to read and write for humans and easy to parse and generate for machines.
+      Wheather you're working with web APIs, configuration files, or data
+      storage, understanding JSON is an essential skill.
+    </p>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
