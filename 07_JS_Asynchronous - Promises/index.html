@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JS-Async</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+
+  <body>
+    <h2>JavaScript Promises</h2>
+    <p>
+      <b>"I Promise a Result!"</b><br />
+      "Producing code" is code that can take some time<br />
+      "Consuming code" is code that must wait for the result<br />
+      A Promise is an Object that links Producing code and Consuming code
+    </p>
+    <br />
+
+    <p>
+      Promises are a key feature in javaScript for handling asynchronous
+      operations. They allow you to write cleaner and more manageable
+      asynchronus code compared to using nested callbacks(callback hell). Let's
+      break down what promises are, how they work, and how to use them
+      effectively.
+    </p>
+
+    <h3>What is Promise?</h3>
+    <p>
+      A promise is an objecct representing the eventual completion or failure of
+      an asynchronus operation. It has three states:
+    </p>
+    <ol>
+      <li>
+        <b>Pending: </b>The initial state, neither fulfilled nor rejected.
+      </li>
+      <li><b>Fulfilled: </b>The operation completed successfully.</li>
+      <li><b>Rejected: </b>The operation failed.</li>
+    </ol>
+    <br />
+
+    <h3>Creating a Promise</h3>
+    <p>
+      You create a promise using the <code>`promise`</code> constructor, which
+      takes a function called the executor. The executor function has two
+      arguments: <code>`resolve`</code> and <code>`reject`</code>. You call
+      <code>`resolve`</code> when the operation is successful and
+      <code>`reject`</code> when it fails.
+    </p>
+    <pre>
+      <code>
+const myPromise = new Promise((resolve, reject) => {
+  // Asynchronous operation
+  const success = true; // This is just an example condition
+
+  if(success) {
+    resolve("Operation was successful!");
+  } else {
+    reject("Operation failed!");
+  }
+});
+      </code>
+    </pre>
+    <br />
+
+    <h3>Using a Promise</h3>
+    <p>
+      You use the <code>`then`, `catch`,</code> and
+      <code>`finally`</code> methods to handle the outcome of the promise.
+    </p>
+    <ol>
+      <li>
+        <b>then: </b>Takes two optional arguments, callbacks for the success and
+        failure cases.
+      </li>
+      <li><b>catch: </b>Takes a callback for the failure case.</li>
+      <li>
+        <b>finally: </b>Takes a callback that runs regardless of the promise's
+        outcome.
+      </li>
+    </ol>
+    <pre>
+      <code>
+myPromise
+  .then(result => {
+    console.log(result); // "Operation was successful!"
+  })
+  .catch(error => {
+    console.log(error); // "Operation failed!"
+  })
+  .finally(() => {
+    console.log("This runs regardless of the promise outcome.");
+  });
+      </code>
+    </pre>
+    <br />
+
+    <h3>Chaining Promises</h3>
+    <p>
+      Promises can be chained to handle multiple asynchronus operations in
+      sequence. Each <code>`then`</code> returns a new promise, which allows for
+      chaining.
+    </p>
+    <pre>
+      <code>
+fetchUser(userId)
+  .then(user => {
+    return fetchPosts(user.id);
+  })
+  .then(posts => {
+    console.log(posts);
+  })
+  .catch(error => {
+    console.log(error);
+  });
+      </code>
+    </pre>
+    <p>In this example:</p>
+    <ul>
+      <li>
+        <code>`fetchUser(userId)`</code> returns a promise that resolves to a
+        user object.
+      </li>
+      <li>
+        The next <code>`then`</code> block takes the user object and returns a
+        new promise from <code>`fetchPosts(user.id)`</code>.
+      </li>
+      <li>The final <code>`then`</code> block handles the posts.</li>
+    </ul>
+    <br />
+
+    <h3>Promisees in Parallel</h3>
+    <p>
+      Sometimes, you need too run multiple asynchronus operations in parallel.
+      You can use <code>`Promise.all`</code> or <code>`Promise.race`</code>.
+    </p>
+    <ul>
+      <li>
+        <b>Promise.all: </b>Waits for all promises to resolve (or for any to
+        reject).
+      </li>
+      <pre>
+        <code>
+const promise1 = fetch('/api/data1');
+const promise2 = fetch('/api/data2');
+
+promise.all([promise1, promise2])
+  .then(results => {
+    const [result1, result2] = results;
+    console.log(result1, result2);
+  })
+  .catch(error => {
+    console.log(error);
+  });
+        </code>
+      </pre>
+      <li>
+        <b>Promise.race: </b>Waits for the first promise to resolve to resolve
+        or reject.
+      </li>
+      <pre>
+        <code>
+const promise1 = fetch('/api/data1');
+const promise2 = fetch('/api/data2');
+
+Promise.race([promise1, promise2])
+  .then(result => {
+    console.log('First resolved: ', result);
+  })
+  .catch(error => {
+    console.log(error);
+  });
+        </code>
+      </pre>
+    </ul>
+    <br />
+
+    <h3>Async/Await with Promises</h3>
+    <p>
+      The <code>`async/await`</code> syntax is a cleaner way to work with
+      promises. It allows you to write asynchronous code that looks synchronus
+    </p>
+    <pre>
+      <code>
+async function fetchData() {
+  try {
+    const user = await fetchUser(userId);
+    const posts = await fetchPosts(user.id);
+    console.log(posts);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+fetchData();
+      </code>
+    </pre>
+    <p>In this example:</p>
+    <ul>
+      <li>The <code>`async`</code> function returns a promise.</li>
+      <li>
+        The <code>`await`</code> keyword pauses the function execution until the
+        promise is resolved (or rejected).
+      </li>
+    </ul>
+    <br />
+
+    <h3>Conclusion</h3>
+    <p>
+      Promises provide a powerful way to handle asynchronus operation in
+      javaScript. They help avoid callback hell by making code more readable and
+      maintanable. By using <code>`then`, `catch`</code> and
+      <code>`finally`</code> methods, along with chaining and parallel execution
+      techniques, you can handle complex asynchronus workflows effectively. The
+      <code>`async/await`</code> syntax further simplifies working with
+      promises, making your code easier to write and understand.
+    </p>
+
+    <script src="./promise_basic.js"></script>
+    <script src="./script.js"></script>
+  </body>
+</html>
