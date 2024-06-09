@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JS-Async</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+
+  <body>
+    <h2>JavaScript Chaining Promises</h2>
+    <p>
+      Chaining promises in JavaScript refers to the practice of linking multiple
+      asynchronous operations together in a sequence, where each operation
+      starts after the previous one completes. This is achieved using the then
+      method, which returns a new promise, allowing subsequent then methods to
+      be called.
+    </p>
+    <br />
+
+    <h3>How Promise Chaining Works</h3>
+    <p>
+      When you call then on a promise, it returns a new promise. This new
+      promise can be used to execute further asynchronous operations. Each then
+      can take two arguments: a callback for when the promise is fulfilled and a
+      callback for when the promise is rejected. By returning a new promise from
+      within a then callback, you can create a chain of asynchronous operations.
+    </p>
+    <br />
+
+    <h3>Basic Example of Promise Chaining</h3>
+    <p>Here's a simple example to illustrate promise Chaining:</p>
+    <pre>
+      <code>
+// Simulate an asynchronous operation
+function fetchData(url) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve(`Data from ${url}`);
+    }, 1000);
+  });
+}
+
+// Chain the promises
+fetchData('api/data1')
+  .then(data => {
+    console.log(data); // Data from api/data1
+    return fetchData('api/data2'); // Return a new promise
+  })
+  .then(data => {
+    console.log(data); // Data from api/data2
+    return fetchData('api/data3'); // Return another new promise
+  })
+  .then(data => {
+    console.log(data); // Data from api/data3
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });        
+      </code>
+    </pre>
+    <p>In this example:</p>
+    <ol>
+      <li><code>fetchData('api/data1')</code> returns a promise.</li>
+      <li>
+        The first <code>`then`</code> handles the resolved value of the first
+        promise and returns a new promise from
+        <code>`fetchData('api/data2')`</code>.
+      </li>
+      <li>
+        The second <code>`then`</code> handles the resolved value of the second
+        promise and returns another new promise from
+        <code>`fetchData('api/data3')`</code>.
+      </li>
+      <li>
+        The third <code>`then`</code> handles the resolved value of the third
+        promise.
+      </li>
+      <li>
+        If any promise in the chain is rejected, the <code>`catch`</code> block
+        will handle the error.
+      </li>
+    </ol>
+    <br />
+
+    <h3>Returning Values in Promise Chains</h3>
+    <p>
+      You don't always need to return a new promise in each
+      <code>`then`</code> callback. If you return a value instead, that value is
+      passed to the next <code>`then`</code> in a chain.
+    </p>
+    <pre>
+      <code>
+fetchData('api/data1')
+.then(data => {
+  console.log(data); // Data from api/data1
+  return 'Some synchronous value'; // Return a synchronous value
+})
+.then(value => {
+  console.log(value); // Some synchronous value
+  return fetchData('api/data2');
+})
+.then(data => {
+  console.log(data); // Data from api/data2
+})
+.catch(error => {
+  console.error('Error:', error);
+});      
+      </code>
+    </pre>
+    <br />
+
+    <h3>Handling Errors in Promise Chains</h3>
+    <p>
+      Errors in promise chains can be caught and handled using
+      <code>`catch`</code>. If an error occurs in any of the
+      <code>`then`</code> callbacks, it will be propagated down the chain until
+      it is caught by a <code>`catch`</code> block.
+    </p>
+    <pre>
+      <code>
+fetchData('api/data1')
+  .then(data => {
+    console.log(data); // Data from api/data1
+    throw new Error('Something went wrong!'); // Trigger an error
+  })
+  .then(data => {
+    // This will not be executed because of the error above
+    console.log(data);
+  })
+  .catch(error => {
+    console.error('Error:', error); // Error: Something went wrong!
+  });
+      </code>
+    </pre>
+    <br />
+
+    <h3>Using <code>`finally`</code> in Promise Chains</h3>
+    <p>
+      The <code>`finally`</code> method can be used to execute code that should
+      run regardless of whether the promise was fulfilled or rejected. It is
+      often used for cleanup operations.
+    </p>
+    <pre>
+      <code>
+fetchData('api/data1')
+  .then(data => {
+    console.log(data); // Data from api/data1
+    return fetchData('api/data2');
+  })
+  .then(data => {
+    console.log(data); // Data from api/data2
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  })
+  .finally(() => {
+    console.log('Cleanup or final steps'); // This runs no matter what
+  });
+      </code>
+    </pre>
+    <br />
+
+    <h3>Summary</h3>
+    <p>
+      Promise chaining is a powerful pattern in JavaScript that allows you to
+      handle sequences of asynchronous operations in a clean and manageable way.
+      By using the <code>`then`</code>, <code>`catch`</code>, and <code>`finally`</code> methods, you can create complex
+      asynchronous workflows that are easy to read and maintain.
+    </p>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
