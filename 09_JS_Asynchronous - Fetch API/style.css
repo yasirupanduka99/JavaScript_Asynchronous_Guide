@@ -1,0 +1,48 @@
+body {
+    background-color: #0d1117;
+    font-family: calibri;
+    color: #c2c2c2;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px 40px;
+}
+
+p {
+    margin: 0;
+}
+
+table {
+    border-collapse: collapse;
+    /* Removes space between cells */
+}
+
+th,
+td {
+    border: 1px solid #c2c2c2;
+    padding: 5px;
+    text-align: left;
+}
+
+pre{
+    background-color: #c2c2c2;
+    color: #0d1117;
+    padding: 0px 20px;
+    width: fit-content;
+    border-radius: 5px;
+}
+
+
+@media only screen and (max-width: 500px) {
+
+    body{
+        padding: 10px 20px;
+        max-width: auto;
+    }
+
+    pre{
+        width: 90%;
+        overflow-x: scroll;
+    }
+
+}

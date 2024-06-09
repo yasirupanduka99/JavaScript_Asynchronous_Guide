@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JS-Async</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+
+  <body>
+    <h2>JavaScript Fetch API</h2>
+    <p>
+      The Fetch API is a modern interface that allows you to make network
+      requests similar to <code>`XMLHttpRequest`</code> (XHR). It provides a
+      more powerful and flexible feature set for making HTTP requests, and is
+      much easier to use. Fetch is built into most modern browsers and works
+      well with promises, making it easier to handle asynchronous operations.
+    </p>
+    <br />
+
+    <h3>Basic Usage of Fetch</h3>
+    <p>
+      To make a simple GET request using the Fetch API, you can use the
+      <code>`fetch`</code> function, which returns a promise that resolves to
+      the <code>`Response`</code> object representing the response to the
+      request.
+    </p>
+    <pre>
+      <code>
+fetch('https://api.example.com/data')
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json(); // Parse the JSON from the response
+  })
+  .then(data => {
+    console.log(data); // Handle the JSON data from the response
+  })
+  .catch(error => {
+    console.error('There has been a problem with your fetch operation:', error);
+  });    
+      </code>
+    </pre>
+    <br />
+
+    <h3>Detailed Explanation</h3>
+    <ol>
+      <li>Making a Request:</li>
+      <pre>
+        <code>
+fetch('https://api.example.com/data')
+        </code>
+      </pre>
+      <p>
+        The <code>`fetch`</code> function takes a URL as a parameter and returns
+        a promise that resolves to a <code>`Response`</code> object.
+      </p>
+      <li>Handling the Response:</li>
+      <pre>
+        <code>
+.then(response => {
+  if (!response.ok) {
+    throw new Error('Network response was not ok');
+  }
+  return response.json();
+})          
+        </code>
+      </pre>
+      <p>
+        The first <code>`.then`</code> method takes a callback that gets the
+        <code>`Response`</code> object. The <code>`response.ok`</code> property
+        checks if the request was successful. The
+        <code>`response.json()`</code> method is used to parse the JSON data
+        from the response. This method returns a promise that resolves with the
+        parsed JSON data.
+      </p>
+      <li>Handling the Data:</li>
+      <pre>
+        <code>
+.then(data => {
+  console.log(data);
+})
+        </code>
+      </pre>
+      <p>
+        The second <code>`.then`</code> method takes the parsed JSON data and
+        allows you to work with it.
+      </p>
+      <li>Handling Errors:</li>
+      <pre>
+        <code>
+.catch(error => {
+  console.error('There has been a problem with your fetch operation:', error);
+});          
+        </code>
+      </pre>
+      <p>
+        The <code>`catch`</code> method is used to handle any errors that occur
+        during the fetch operation.
+      </p>
+    </ol>
+    <br />
+
+    <h3>Making a POST Request</h3>
+    <p>
+      To make a POSTT request, you need to pass an options object as the second
+      argument to <code>`fetch`</code>, specifying the method, headers, and
+      body.
+    </p>
+    <pre>
+      <code>
+fetch('https://api.example.com/data', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    name: 'John Doe',
+    age: 30
+  })
+})
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json();
+  })
+  .then(data => {
+    console.log('Success:', data);
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });        
+      </code>
+    </pre>
+    <br />
+
+    <h3>Detailed Explanation</h3>
+    <ol>
+      <li>Request Options:</li>
+      <pre>
+        <code>
+fetch('https://api.example.com/data', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    name: 'John Doe',
+    age: 30
+  })
+})          
+        </code>
+      </pre>
+      <p>
+        The options object includes the <code>method</code>,
+        <code>headers</code>, and <code>body</code> properties:
+      </p>
+      <ul>
+        <li>
+          <code>method</code>: Specifies the HTTP method to use (e.g., 'POST').
+        </li>
+        <li>
+          <code>headers</code>: Sets the request headers. In this case, we're
+          setting the <code>Content-Type</code> to 'application/json'.
+        </li>
+        <li>
+          <code>body</code>: Contains the data to send with the request. The
+          data is stringified using <code>JSON.stringify</code>.
+        </li>
+      </ul>
+      <li>Handling the Response and Data:</li>
+      <p>The response and data handling is similar to the GET request.</p>
+    </ol>
+    <br />
+
+    <h3>Handling Diffrent Response Types</h3>
+    <p>
+      The <code>`Response`</code> object provides methods to handle different
+      types of responses:
+    </p>
+    <ul>
+      <li><code>response.json()</code>: Parses the response as JSON.</li>
+      <li><code>response.text()</code>: Parses the response as text.</li>
+      <li>
+        <code>response.blob()</code>: Parses the response as a Blob (binary
+        data).
+      </li>
+      <li>
+        <code>response.formData()</code>: Parses the response as FormData.
+      </li>
+      <li>
+        <code>response.arrayBuffer()</code>: Parses the response as an
+        ArrayBuffer.
+      </li>
+    </ul>
+    <p>Example for text response:</p>
+    <pre>
+      <code>
+fetch('https://api.example.com/data')
+  .then(response => response.text())
+  .then(text => {
+    console.log(text);
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });      
+      </code>
+    </pre>
+    <br />
+
+    <h3>Conclusion</h3>
+    <p>
+      The Fetch API provides a simple and powerful way to make HTTP requests in
+      JavaScript. It uses promises, making it easier to handle asynchronous
+      operations and chain multiple requests together. With methods to handle
+      different response types and options to configure requests, the Fetch API
+      is a versatile tool for working with web APIs.
+    </p>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
