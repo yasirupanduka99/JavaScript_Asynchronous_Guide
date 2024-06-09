@@ -1,0 +1,20 @@
+[
+    {
+        "text": "play mariokart",
+        "author": "yasiru",
+        "no": 1,
+        "active": false
+    },
+    {
+        "text": "play cricket",
+        "author": "yasiru",
+        "no": 2,
+        "active": true
+    },
+    {
+        "text": "learn javascript",
+        "author": "yasiru",
+        "no": 3,
+        "active": false
+    }
+]

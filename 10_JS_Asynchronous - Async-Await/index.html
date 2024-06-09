@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JS-Async</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+
+  <body>
+    <h2>JavaScript Async/Await</h2>
+    <p>
+      <code>`async`</code> and <code>`await`</code> are modern JavaScript
+      features that make working with asynchronous code easier and more
+      readable. They are built on top of promises, providing a more
+      straightforward way to write asynchronous operations that look like
+      synchronous code.
+    </p>
+    <br />
+
+    <h3>Basic Concepts</h3>
+    <ol>
+      <li>
+        <code>`async`</code> function: A function declared with the
+        <code>`async`</code> keyword. It always returns a promise, and you can
+        use the <code>`await`</code> keyword inside it.
+      </li>
+      <li>
+        <code>`await`</code> expression: Pauses the execution of an
+        <code>`async`</code> function, waiting for a promise to resolve or
+        reject. It can only be used inside <code>`async`</code>
+        functions.
+      </li>
+    </ol>
+    <br />
+
+    <h3>Basic Example</h3>
+    <p>
+      Here's a simple example of using <code>`async`</code> and
+      <code>`await`:</code>
+    </p>
+    <pre>
+      <code>
+async function fetchData() {
+  try {
+    const response = await fetch('https://api.example.com/data');
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    const data = await response.json();
+    console.log(data);
+  } catch (error) {
+    console.error('There has been a problem with your fetch operation:', error);
+  }
+}
+        
+fetchData();        
+      </code>
+    </pre>
+    <br />
+
+    <h3>Detailed Explanation</h3>
+    <ol>
+      <li><code>`async`</code> function declaration:</li>
+      <pre>
+        <code>
+          async function fetchData() {
+            // ...
+          }          
+        </code>
+      </pre>
+      <p>Declares an asynchronous function that returns a promise.</p>
+
+      <li><code>`await`</code> expression:</li>
+      <pre>
+        <code>
+const response = await fetch('https://api.example.com/data');
+        </code>
+      </pre>
+      <p>
+        Pauses the execution of the <code>`fetchData`</code> function until the
+        <code>`fetch`</code> promise resolves. The resolved value (the
+        <code>`Response`</code> object) is assigned to the
+        <code>`response`</code> variable.
+      </p>
+
+      <li>Error handling with <code>`try...catch`</code>:</li>
+      <pre>
+        <code>
+try {
+  // await expressions
+} catch (error) {
+  console.error('Error:', error);
+}               
+        </code>
+      </pre>
+      <p>
+        Wraps the asynchronous operations in a <code>`try`</code> block to catch
+        any errors that might occur during execution. If an error occurs, the
+        <code>`catch`</code> block handles it.
+      </p>
+
+      <li>Chaining <code>`await`</code> expression:</li>
+      <pre>
+        <code>
+const data = await response.json();
+        </code>
+      </pre>
+      <p>
+        Similarly, pauses the execution until the
+        <code>`response.json()`</code> promise resolves and assigns the parsed
+        JSON data to the <code>`data`</code> variable.
+      </p>
+    </ol>
+    <br />
+
+    <h3>More Examples</h3>
+
+    <p><b>Handling Multiple Promises</b></p>
+    <p>
+      You can uses <code>`await`</code> to handle multiple promises sequentially
+      or in parallel.
+    </p>
+
+    <p><b>Sequential Execution:</b></p>
+    <pre>
+      <code>
+async function sequentialRequests() {
+  const user = await fetchUser(userId);
+  const posts = await fetchPosts(user.id);
+  const comments = await fetchComments(posts[0].id);
+  console.log(comments);
+}
+
+sequentialRequests();        
+      </code>
+    </pre>
+    <p>
+      In this exampke, eah promise waits for the previous one to resolve before
+      executing.
+    </p>
+
+    <p><b>Parallel Execution:</b></p>
+    <pre>
+      <code>
+async function parallelRequests() {
+  const userPromise = fetchUser(userId);
+  const postsPromise = fetchPosts(userId);
+  
+  const user = await userPromise;
+  const posts = await postsPromise;
+  
+  console.log(user, posts);
+}
+
+parallelRequests();        
+      </code>
+    </pre>
+    <p>
+      Here, <code>fetchUser</code> and <code>fetchPosts</code> start
+      simultaneously. <code>await</code> waits for both promises to resolve but
+      doesn't start the second one only after the first one completes.
+    </p>
+
+    <h4>Using <code>Promise.all</code> with <code>await</code></h4>
+    <p>
+      You can use <code>Promise.all</code> to wait for multiple promises to
+      resolve in parallel.
+    </p>
+    <pre>
+      <code>
+async function fetchMultipleData() {
+  const [user, posts] = await Promise.all([
+    fetchUser(userId),
+    fetchPosts(userId)
+  ]);
+  console.log(user, posts);
+}
+
+fetchMultipleData();        
+      </code>
+    </pre>
+    <br />
+
+    <h3>Error Handling</h3>
+    <p>
+      Errors in <code>async</code> functions can be caught using
+      <code>try...catch</code>.
+    </p>
+    <pre>
+      <code>
+async function fetchData() {
+  try {
+    const response = await fetch('https://api.example.com/data');
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    const data = await response.json();
+    console.log(data);
+  } catch (error) {
+    console.error('There has been a problem with your fetch operation:', error);
+  }
+}
+
+fetchData();        
+      </code>
+    </pre>
+    <br />
+
+    <h3>Conclusion</h3>
+    <p>
+      <code>async</code> and <code>await</code> provide a cleaner and more
+      readable way to work with promises in JavaScript. By using these features,
+      you can write asynchronous code that looks synchronous, making it easier
+      to understand and maintain. Here are the key points:
+    </p>
+    <ul>
+      <li>
+        Use <code>async</code> to declare a function that returns a promise.
+      </li>
+      <li>
+        Use <code>await</code> to pause the execution of an
+        <code>async</code> function and wait for a promise to resolve.
+      </li>
+      <li>Handle errors with <code>try...catch</code> blocks.</li>
+      <li>
+        Use <code>Promise.all</code> to handle multiple promises in parallel.
+      </li>
+    </ul>
+    <p>
+      By adopting <code>async</code> and <code>await</code>, you can simplify
+      your asynchronous code and make it more readable and maintainable.
+    </p>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
