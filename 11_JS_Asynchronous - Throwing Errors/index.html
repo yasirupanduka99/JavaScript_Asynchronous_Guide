@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JS-Async</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+
+  <body>
+    <h2>JavaScript Throwing Errors</h2>
+    <p>
+      Throwing errors in JavaScript is an essential technique for handling
+      exceptional situations in your code. When an error occurs, you can "throw"
+      an error to signal that something went wrong. This can be caught and
+      handled using <code>`try...catch`</code> blocks. Let's explore how to
+      throw errors and handle them properly.
+    </p>
+    <br />
+
+    <h3>Throwing Errors</h3>
+    <p>
+      You can throw errors in JavaScript using the
+      <code>`throw`</code> statement. The thrown error can be an instance of the
+      <code>`Error`</code> object or any other type of object, but using
+      <code>`Error`</code> objects is recommended because they provide a
+      standard way to handle and log errors.
+    </p>
+    <br />
+
+    <h4>Basic Example of Throwing an Error</h4>
+    <pre>
+      <code>
+function divide(a, b) {
+  if (b === 0) {
+    throw new Error("Division by zero is not allowed.");
+  }
+  return a / b;
+}
+
+try {
+  const result = divide(4, 0);
+  console.log(result);
+} catch (error) {
+  console.error(error.message); // "Division by zero is not allowed."
+}        
+      </code>
+    </pre>
+    <br />
+
+    <h4>Detailed Explanation</h4>
+    <ol>
+      <li>Throwing an Error:</li>
+      <pre>
+        <code>
+if (b === 0){
+  throw new Error("Division by zero is not allowed.");
+}
+        </code>
+      </pre>
+      <p>
+        When <code>`b`</code> is zero, an <code>`Error`</code> object is created
+        and thrown with the message "Division by zero is not allowed."
+      </p>
+
+      <li>Handling the Error:</li>
+      <pre>
+        <code>
+try{
+  const result = divide(4, 0);
+  console.log(result);
+} catch (error) {
+  console.log(error.message);
+}
+        </code>
+      </pre>
+      <p>
+        The <code>`try`</code> block contains the code that might throw an
+        error. If an error is thrown, the <code>`catch`</code> block catches it,
+        and the <code>`error`</code> object contains information about the
+        error, including its message.
+      </p>
+    </ol>
+    <br />
+
+    <h3>Custom Error Types</h3>
+    <p>
+      You can create custom error types by extending the
+      <code>`Error`</code> class. This allows you to throw and catch specific
+      types of errors.
+    </p>
+    <pre>
+      <code>
+class ValidationError extends Error {
+  constructor(message) {
+    super(message);
+    this.name = "ValidationError";
+  }
+}
+
+function validateUser(user) {
+  if (!user.name) {
+    throw new ValidationError("User must have a name.");
+  }
+  if (!user.age) {
+    throw new ValidationError("User must have an age.");
+  }
+}
+
+try {
+  validateUser({ age: 30 });
+} catch (error) {
+  if (error instanceof ValidationError) {
+    console.error("Validation Error:", error.message);
+  } else {
+    console.error("Unknown Error:", error);
+  }
+}        
+      </code>
+    </pre>
+
+    <h4>Detailed Explanation</h4>
+    <ol>
+      <li>Creating a Custom Error:</li>
+      <pre>
+        <code>
+class ValidationError extends Error {
+  constructor(message) {
+    super(message);
+    this.name = "ValidationError";
+  }
+}          
+        </code>
+      </pre>
+      <p>
+        The <code>`ValidationError`</code> class extends the built-in
+        <code>`Error`</code> class, setting a custom error name.
+      </p>
+
+      <li>Throwing a Custom Error:</li>
+      <pre>
+        <code>
+throw new ValidationError("User must have a name.");
+        </code>
+      </pre>
+      <p>
+        In the <code>`validateUser`</code> function, custom validation errors
+        are thrown with specific messages.
+      </p>
+
+      <li>Catching a Custom Error:</li>
+      <pre>
+        <code>
+if (error instanceof ValidationError) {
+  console.error("Validation Error:", error.message);
+}          
+        </code>
+      </pre>
+      <p>
+        The <code>`catch`</code> block checks if the caught error is an instance
+        of <code>`ValidationError`</code> and handles it accordingly.
+      </p>
+    </ol>
+    <br />
+
+    <h3>Rethrowing Errors</h3>
+    <p>
+      Sometimes you might want to catch an error, do some processing, and then
+      rethrow it to be handled by another part of your code.
+    </p>
+    <pre>
+      <code>
+function processData(data) {
+  try {
+    // Process the data
+    if (!data) {
+      throw new Error("No data provided.");
+    }
+  } catch (error) {
+    console.error("Error processing data:", error.message);
+    throw error; // Rethrow the error
+  }
+}
+
+try {
+  processData(null);
+} catch (error) {
+  console.error("An error occurred:", error.message);
+}        
+      </code>
+    </pre>
+
+    <h4>Detailed Explanation</h4>
+    <ol>
+      <li>Rethrowing an Error:</li>
+      <pre>
+        <code>
+throw error; // Rethrow the error
+        </code>
+      </pre>
+      <p>
+        After logging the error message, the error is rethrown to be caught by
+        another <code>`try...catch`</code> block.
+      </p>
+    </ol>
+    <br />
+
+    <h3>Conclusion</h3>
+    <p>
+      Throwing and handling errors properly in JavaScript is crucial for
+      building robust applications. Here's a quick summary of key points:
+    </p>
+    <ul>
+      <li>
+        Use the <code>`throw`</code> statement to throw errors when something
+        goes wrong.
+      </li>
+      <li>
+        Use <code>`try...catch`</code> blocks to handle errors and prevent them
+        from crashing your application.
+      </li>
+      <li>
+        Create custom error types by extending the <code>`Error`</code> class
+        for more specific error handling.
+      </li>
+      <li>
+        Rethrow errors when necessary to allow higher-level error handlers to
+        manage them.
+      </li>
+    </ul>
+    <p>
+      By following these practices, you can effectively manage errors in your
+      JavaScript applications and provide a better user experience.
+    </p>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
